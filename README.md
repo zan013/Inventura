@@ -2,9 +2,7 @@
 
 Android nadomestek za obstoječi čitalec elektronske inventure (Zebra + Windows CE,
 aplikacija »Moto Scan«). Namenjen je Zebra Android terminalom
-(npr. TC21/TC26) s skeniranjem prek **DataWedge**. Izvozi `.txt` datoteko v enakem
-duhu kot stari čitalec; datoteko prek USB prekopiraš v `C:\temp` in uvoziš v MAOP
-inventuro prek gumba **Štetje inventure**.
+(npr. TC21/TC26) s skeniranjem prek **DataWedge**. Izvozi `.txt` datoteko
 
 
 
