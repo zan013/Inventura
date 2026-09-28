@@ -1,87 +1,12 @@
 # Inventura (Android)
 
 Android nadomestek za obstoječi čitalec elektronske inventure (Zebra + Windows CE,
-aplikacija »Moto Scan« podjetja MAOP). Namenjen je Zebra Android terminalom
+aplikacija »Moto Scan«). Namenjen je Zebra Android terminalom
 (npr. TC21/TC26) s skeniranjem prek **DataWedge**. Izvozi `.txt` datoteko v enakem
 duhu kot stari čitalec; datoteko prek USB prekopiraš v `C:\temp` in uvoziš v MAOP
 inventuro prek gumba **Štetje inventure**.
 
----
 
-## ⚠️ Eno moraš potrditi: format izvozne datoteke
-
-Stari čitalec je ustvaril datoteko (npr. `06042017_101633742.txt`), ki jo MAOP
-uvoz »Štetje inventure« zna prebrati. Da nova aplikacija ostane **100 % združljiva**,
-mora biti format vrstice **enak** kot v tej datoteki. **Vzorca te datoteke nimam**,
-zato je trenutni format **najboljša ocena**:
-
-```
-EAN;KOLIČINA;POPISOVALEC   (ena vrstica na sken, ločilo ;, CRLF)
-```
-
-Ko dobiš pravo datoteko iz starega čitalca, odpri
-`app/src/main/java/si/lagardere/inventura/export/ExportFormat.kt` in nastavi:
-
-- `order` – vrstni red polj (EAN / KOLIČINA / POPISOVALEC)
-- `DELIMITER` – ločilo (`;`, `\t`, `,` …)
-- `LINE_ENDING` – konec vrstice (`\r\n` ali `\n`)
-- `formatQuantity()` – cela števila ali decimalke
-
-Nič drugega v aplikaciji ni treba spreminjati. **Priporočam: pošlji mi eno staro
-`.txt` datoteko in točno nastavim format, da uvoz stoodstotno deluje.**
-
-Znaki: vsebina so samo številke, zato je ASCII/UTF-8 varen. Če bi uvoz zahteval
-Windows-1250, spremeni `CHARSET` v `Exporter.kt`.
-
----
-
-## Kaj aplikacija naredi (preslikava iz starega toka)
-
-| Stari čitalec (CE) | Android aplikacija |
-|---|---|
-| Meni → Inventura | Glavni zaslon (zajem) |
-| Popisovalec (šifra referenta 4–7 mest, ostane zapisan) | Polje **Popisovalec**, se ohrani med skeni in ob ponovnem zagonu |
-| EAN prek laserja (rumeni gumb) | Skeniranje prek DataWedge (ali ročni vnos) |
-| Količina, privzeto 1 | Polje **Količina**, privzeto 1 |
-| Način »samo EAN« (vsak sken = 1) | Stikalo **Skeniraj samo EAN** |
-| View records, F2 = izbriši | Zaslon **Zapisi**, gumb **Izbriši** |
-| Prenos prek USB v `C:\temp`, po prenosu se čitalec izprazni | **Izvozi** → `.txt` v `Download/Inventura`, po izvozu (opcijsko) izprazni zapise |
-| Uvoz »Štetje inventure« v MAOP | Isti postopek – datoteko le prekopiraš v `C:\temp` |
-
-Zapisi so shranjeni v bazi (Room), zato preživijo zaprtje aplikacije ali menjavo
-baterije – za razliko od starega čitalca.
-
----
-
-## Gradnja
-
-Wrapper (`gradlew`, `gradle-wrapper.jar`) je vključen, zato gradnja deluje takoj.
-
-### A) GitHub Actions (najlažje – brez namestitve orodij)
-1. Naloži ta projekt v GitHub repozitorij (`main` ali `master`).
-2. Workflow `.github/workflows/android.yml` samodejno zgradi APK. Lahko ga sprožiš
-   tudi ročno: zavihek **Actions → Build APK → Run workflow**.
-3. Ko tek konča, v povzetku pod **Artifacts** prenesi `Inventura-debug-apk`
-   (`app-debug.apk`).
-
-### B) Android Studio
-1. Namesti Android Studio (Hedgehog ali novejši).
-2. `File → Open` → izberi mapo `InventuraAndroid`, počakaj na sinhronizacijo.
-3. `Build → Build Bundle(s)/APK(s) → Build APK(s)` → dobiš `app-debug.apk`.
-
-### C) Ukazna vrstica (z nameščenim Android SDK + JDK 17)
-```
-export ANDROID_HOME=/pot/do/android-sdk
-./gradlew assembleDebug
-# rezultat: app/build/outputs/apk/debug/app-debug.apk
-```
-
-APK nato prenesi na Zebra terminal (USB / MDM / StageNow) in namesti (dovoli
-namestitev iz neznanih virov, če ni prek MDM).
-
-Nastavitve: `minSdk 24` (Android 7+), `targetSdk 34`, paket `si.lagardere.inventura`.
-
----
 
 ## DataWedge (skener)
 
