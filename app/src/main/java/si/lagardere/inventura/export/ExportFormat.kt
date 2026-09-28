@@ -4,21 +4,24 @@ import si.lagardere.inventura.data.Record
 
 /**
  * ==========================================================================
- *  EXPORT FORMAT  --  THE ONE THING TO CONFIRM AGAINST A REAL CE FILE.
+ *  EXPORT FORMAT  --  confirmed against a real CE export (voklo_1.csv).
  * ==========================================================================
- * The MAOP back-office import ("Štetje inventure") reads the text file the
- * old Windows CE reader produced. To stay 100% compatible, the line format
- * below must match that file exactly. We do NOT have a sample yet, so this
- * is a best guess: one line per scan, semicolon-separated, EAN;KOLICINA;POPISOVALEC.
+ * The MAOP back-office import ("Štetje inventure") reads the file the old
+ * Windows CE reader produced. Confirmed line format:
  *
- * When you have a real file from the old reader (e.g. 06042017_101633742.txt),
- * adjust the four knobs below to match it. Nothing else in the app needs to change.
+ *     POPISOVALEC;EAN;KOLIČINA        e.g.  27;3831008245905;48
+ *
+ * - semicolon separated, no header row
+ * - one line per scan (duplicate EANs are kept separate; the BO sums them)
+ * - quantity is an integer
+ *
+ * The knobs below let you tweak the format later without touching the rest.
  */
 object ExportFormat {
 
-    /** Field order on each line. Reorder to match the CE file. */
+    /** Field order on each line. Confirmed: POPISOVALEC;EAN;KOLIČINA. */
     enum class Field { EAN, KOLICINA, POPISOVALEC }
-    val order: List<Field> = listOf(Field.EAN, Field.KOLICINA, Field.POPISOVALEC)
+    val order: List<Field> = listOf(Field.POPISOVALEC, Field.EAN, Field.KOLICINA)
 
     /** Column separator. Common options: ";"  "\t"  "," */
     const val DELIMITER: String = ";"
