@@ -1,0 +1,15 @@
+<resources>
+    <!-- Lagardère palette -->
+    <color name="navy">#0A2A4E</color>
+    <color name="navy_dark">#06203C</color>
+    <color name="magenta">#E5007D</color>
+    <color name="magenta_dark">#B80063</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="bg">#FFFFFF</color>
+    <color name="panel">#F4F5F7</color>
+    <color name="text">#1A1A1A</color>
+    <color name="muted">#6B6B6B</color>
+    <color name="border">#DDDDDD</color>
+    <color name="green">#1E8E3E</color>
+</resources>

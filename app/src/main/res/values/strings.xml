@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Inventura</string>
+
+    <!-- Main / scan screen -->
+    <string name="title_scan">Inventura</string>
+    <string name="popisovalec">Popisovalec</string>
+    <string name="popisovalec_hint">Šifra referenta (4–7 mest)</string>
+    <string name="ean">EAN</string>
+    <string name="ean_hint">Skeniraj ali vnesi EAN</string>
+    <string name="kolicina">Količina</string>
+    <string name="save">Shrani (Enter)</string>
+    <string name="only_ean">Skeniraj samo EAN (količina = 1)</string>
+    <string name="records_count">Zapisov: %1$d</string>
+    <string name="last_scan">Zadnji: %1$s × %2$s</string>
+
+    <!-- Menu -->
+    <string name="menu_records">Zapisi</string>
+    <string name="menu_export">Izvozi (prenos)</string>
+    <string name="menu_setup_scanner">Nastavi skener</string>
+
+    <!-- Records screen -->
+    <string name="title_records">Zapisi inventure</string>
+    <string name="delete">Izbriši</string>
+    <string name="no_records">Ni zapisov.</string>
+    <string name="record_line">%1$s  ·  količina %2$s</string>
+    <string name="record_sub">Popisovalec %1$s</string>
+    <string name="confirm_delete_title">Izbriši zapis?</string>
+    <string name="confirm_delete_msg">%1$s (količina %2$s)</string>
+
+    <!-- Export -->
+    <string name="export_title">Izvoz inventure</string>
+    <string name="export_skladisce">Šifra skladišča (neobvezno)</string>
+    <string name="export_skladisce_hint">npr. 63</string>
+    <string name="export_do">Izvozi</string>
+    <string name="export_none">Ni zapisov za izvoz.</string>
+    <string name="export_ok_title">Datoteka shranjena</string>
+    <string name="export_ok_msg">Shranjeno kot:\n%1$s\n\nPrek USB prekopiraj datoteko v C:\\temp na računalniku, nato uvozi v MAOP inventuro (Štetje inventure).</string>
+    <string name="export_clear_after">Po izvozu izprazni zapise</string>
+    <string name="export_failed">Izvoz ni uspel: %1$s</string>
+
+    <!-- Validation -->
+    <string name="err_no_popisovalec">Vnesi popisovalca.</string>
+    <string name="err_no_ean">Ni EAN kode.</string>
+
+    <!-- Scanner setup -->
+    <string name="dw_configured">Skener (DataWedge) je nastavljen.</string>
+    <string name="dw_failed">Samodejna nastavitev skenerja ni uspela – ročno nastavi DataWedge (glej README).</string>
+</resources>
