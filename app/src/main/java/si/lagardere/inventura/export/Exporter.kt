@@ -24,6 +24,10 @@ object Exporter {
     /** Sub-folder inside Downloads where files are written. */
     private const val SUBDIR = "Inventura"
 
+    /** File extension. Real CE exports are ";"-separated CSV (e.g. voklo_1.csv).
+     *  The MAOP import dialog uses "All Files", so .txt works too — change here. */
+    private const val FILE_EXT = ".csv"
+
     /** File content charset. CE tooling is Windows-based; content is digits only,
      *  so ASCII/UTF-8 is safe. Change here if the import needs Windows-1250. */
     private val CHARSET = Charsets.UTF_8
@@ -34,7 +38,7 @@ object Exporter {
         val stamp = SimpleDateFormat("ddMMyyyy_HHmmssSSS", Locale.US).format(Date())
         val sk = skladisce?.trim().orEmpty()
         val suffix = if (sk.isNotEmpty()) "_" + sk.filter { it.isLetterOrDigit() } else ""
-        return "$stamp$suffix.txt"
+        return "$stamp$suffix$FILE_EXT"
     }
 
     suspend fun export(
@@ -58,7 +62,7 @@ object Exporter {
         val relative = Environment.DIRECTORY_DOWNLOADS + "/" + SUBDIR
         val values = ContentValues().apply {
             put(MediaStore.Downloads.DISPLAY_NAME, fileName)
-            put(MediaStore.Downloads.MIME_TYPE, "text/plain")
+            put(MediaStore.Downloads.MIME_TYPE, "text/csv")
             put(MediaStore.Downloads.RELATIVE_PATH, relative)
             put(MediaStore.Downloads.IS_PENDING, 1)
         }
